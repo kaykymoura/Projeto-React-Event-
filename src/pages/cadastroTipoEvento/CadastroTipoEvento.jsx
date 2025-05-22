@@ -11,7 +11,7 @@ import Banner from "../../assets/img/banner.png"
 const CadastrartipoEvento = () => {
     const [tipoEvento, settipoEvento] = useState("");
     const [listatipoEvento, setListatipoEvento] = useState([])
-    const [deletatipoEvento, setDeletatipoEvento] = useState();
+    
 
     useEffect(() => {
         listartipoEvento();
@@ -42,7 +42,7 @@ const CadastrartipoEvento = () => {
                 await api.post("tiposEventos", { titulotipoEvento: tipoEvento });
                 alertar("success", "Cadastro realizado com sucesso!")
                 settipoEvento("")
-                listartipoEvento(); // Atualiza lista após cadastro
+                listartipoEvento(); 
             } catch (error) {
                 alertar("error", "Erro! entre em contato com o suporte")
             }
@@ -74,10 +74,10 @@ const CadastrartipoEvento = () => {
 
     if (result.isConfirmed) {
         try {
-            console.log("ID enviado para deletar:", id); // Teste: veja se imprime o UUID correto
+            console.log("ID enviado para deletar:", id); 
             await api.delete(`tiposEventos/${id}`);
             alertar("success", "Deletado com sucesso!");
-            listartipoEvento(); // Atualiza lista após deletar
+            listartipoEvento(); 
         } catch (error) {
             console.error("Erro ao deletar:", error.response || error);
             alertar("error", "Erro ao deletar.");
@@ -105,7 +105,7 @@ const CadastrartipoEvento = () => {
             try {
                 await api.put(`TiposEventos/${tipoEvento.idTipoEvento}`, { tituloTipoEvento: novoTipoEvento });
                 Swal.fire(`O Tipo evento foi modificado para ${novoTipoEvento}`);
-                listartipoEvento(); // Atualiza lista após edição
+                listartipoEvento(); 
             } catch (error) {
                 console.log(error);
             }
