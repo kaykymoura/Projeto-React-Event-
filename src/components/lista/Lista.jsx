@@ -1,5 +1,6 @@
 import "./Lista.css"
 import Editar from "../../assets/img/Editar.png"
+import Detalhes from "../../assets/img/informacoes1.png"
 import Excluir from "../../assets/img/Excluir.png"
 
 const Lista = (props) => {
@@ -12,40 +13,44 @@ const Lista = (props) => {
                 <thead>
                     <tr className="table_cabecalho">
                         <th>{props.tituloEvento}</th>
+                        <th>Data Evento</th>
                         <th>{props.nomeEvento1}</th>
                         <th>Editar</th>
                         <th>Excluir</th>
+                        <th>Descrição</th>
                     </tr>
                 </thead>
-                <tbody>
                 {props.lista && props.lista.length > 0 ? (
                     props.lista.map((item) => (
-                            <tr className="item_lista" key={props.tipoLista == "tiposEventos" ? item.idTipoEvento : item.tituloTipoEvento}>
+                        <tbody>
+                            <tr className="item_lista" key={props.tipoLista == "tiposEventos" ? item.idTipoEvento : (props.tipoLista == "tipoUsuarios" ? item.idTipoUsuario: item.idEvento)}>
                                 <td data-cell="Nome" >
-                                    {item.tituloTipoEvento}
+                                    {props.tipoLista == "tiposEventos" ? item.tituloTipoEvento : (props.tipoLista == "tipoUsuarios" ? item.tituloTipoUsuario: item.nomeEvento)}
                                 </td>
-                                <td data-cell="Evento">{props.nomeEvento2}</td>
-                                <td data-cell="Editar">
-                                    <button onClick={() => {props.funcEditar(item)}}>
-                                        <img src={Editar} alt="Imagem de uma caneta"/>
-                                    </button>
+                                <td data-cell="Data">
+                                    {item.dataEvento}
                                 </td>
+                                <td data-cell="Evento">{item.tiposEvento?.tituloTipoEvento}</td>
+                                <td data-cell="Editar"><img src={Editar} alt="Imagem de uma caneta" onClick={() => { props.funcEditar(item) }} style={{ cursor: "pointer" }} /></td>
                                 <td data-cell="Excluir">
                                     <img
                                         src={Excluir}
                                         alt="Lixeira"
-                                        onClick={() => props.funcDeletar(item.idTipoEvento)}
+                                        onClick={() => (props.deletar(item))}
                                         style={{ cursor: "pointer" }}
                                     />
                                 </td>
+                                <td data-cell="Descrição">
+                                    <img src={Detalhes} alt="Detalhes" />
+                                </td>
                             </tr>
+                        </tbody>
                     ))
                 ) :
-                (
-                    <p>Nenhum Tipo de Evento Encontrado.</p>
-                )
+                    (
+                        <p>Nenhum Tipo de Evento Encontrado.</p>
+                    )
                 }
-                </tbody>
             </div>
         </section>
     )

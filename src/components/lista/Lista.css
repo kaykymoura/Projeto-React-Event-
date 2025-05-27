@@ -50,13 +50,13 @@
 }
 
 .tabela .table_cabecalho :nth-child(2) {
-    width: 760px;
+    /* width: 750px; */
     text-align: start;
 }
 
 .tabela .table_cabecalho th {
     border-bottom: 1px solid white;
-    width: 100px;
+    width: 600px;
     margin-top: 40px;
     
 }
