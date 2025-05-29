@@ -31,7 +31,11 @@ const Lista = (props) => {
                                     {item.dataEvento}
                                 </td>
                                 <td data-cell="Evento">{item.tiposEvento?.tituloTipoEvento}</td>
-                                <td data-cell="Editar"><img src={Editar} alt="Imagem de uma caneta" onClick={() => { props.funcEditar(item) }} style={{ cursor: "pointer" }} /></td>
+                                <td data-cell="Editar">
+                                    <img src={Editar} 
+                                    alt="Imagem de uma caneta"
+                                     onClick={() => { props.funcEditar(item) }} 
+                                     style={{ cursor: "pointer" }} /></td>
                                 <td data-cell="Excluir">
                                     <img
                                         src={Excluir}
