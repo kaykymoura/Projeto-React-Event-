@@ -37,6 +37,8 @@ const CadastrarEvento = () => {
         });
     }
 
+    
+
     async function listarTipoEvento() {
         try {
             const resposta = await api.get("tiposEventos");
@@ -89,6 +91,30 @@ const CadastrarEvento = () => {
         }
     }
 
+   async function descricaoEvento(evento) {
+    await Swal.fire({
+        title: evento.nomeEvento,  
+        text: evento.descricao,    
+        icon: 'info',
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        confirmButtonText: 'Fechar'
+    });
+}
+
+
     useEffect(() => {
         listarTipoEvento();
         listarEvento();
@@ -120,6 +146,7 @@ const CadastrarEvento = () => {
                 setValorText={setDescricao}
 
                 lista={listaTipoEvento}
+
             />
             <Lista
                 titulo="Lista de Evento"
@@ -130,6 +157,7 @@ const CadastrarEvento = () => {
 
                 lista={listaEvento}
                 deletar={removerEvento}
+                descricao={descricaoEvento}
             />
             <Footer />
         </>

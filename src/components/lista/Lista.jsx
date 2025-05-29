@@ -41,7 +41,11 @@ const Lista = (props) => {
                                     />
                                 </td>
                                 <td data-cell="Descrição">
-                                    <img src={Detalhes} alt="Detalhes" />
+                                    <img 
+                                    src={Detalhes}
+                                     alt="Detalhes" 
+                                     onClick={() => (props.descricao(item))}
+                                        style={{ cursor: "pointer" }}/>
                                 </td>
                             </tr>
                         </tbody>
