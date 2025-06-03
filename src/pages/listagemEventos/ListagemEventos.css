@@ -59,13 +59,13 @@
 }
 
 .tabela_evento .table_evento :nth-child(2) {
-    width: 760px;
+    
     text-align: start;
 }
 
 .tabela_evento .table_evento th {
     border-bottom: 2px solid #B51D44;
-    width: 100px;
+    width: 174px;
     margin-top: 40px;
 
 }

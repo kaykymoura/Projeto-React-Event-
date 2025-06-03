@@ -13,11 +13,11 @@ const Lista = (props) => {
                 <thead>
                     <tr className="table_cabecalho">
                         <th>{props.tituloEvento}</th>
-                        <th>Data Evento</th>
-                        <th>{props.nomeEvento1}</th>
+                        <th style={{ display: props.visible }}>Data Evento</th>
+                        
                         <th>Editar</th>
                         <th>Excluir</th>
-                        <th>Descrição</th>
+                        <th style={{ display: props.visible }}>Descrição</th>
                     </tr>
                 </thead>
                 {props.lista && props.lista.length > 0 ? (
@@ -27,10 +27,10 @@ const Lista = (props) => {
                                 <td data-cell="Nome" >
                                     {props.tipoLista == "tiposEventos" ? item.tituloTipoEvento : (props.tipoLista == "tipoUsuarios" ? item.tituloTipoUsuario: item.nomeEvento)}
                                 </td>
-                                <td data-cell="Data">
+                                <td style={{ display: props.visible }} data-cell="Data">
                                     {item.dataEvento}
                                 </td>
-                                <td data-cell="Evento">{item.tiposEvento?.tituloTipoEvento}</td>
+                                <td style={{ display: props.visible }} data-cell="Evento">{item.tiposEvento?.tituloTipoEvento}</td>
                                 <td data-cell="Editar">
                                     <img src={Editar} 
                                     alt="Imagem de uma caneta"
@@ -44,7 +44,7 @@ const Lista = (props) => {
                                         style={{ cursor: "pointer" }}
                                     />
                                 </td>
-                                <td data-cell="Descrição">
+                                <td style={{ display: props.visible }} data-cell="Descrição">
                                     <img 
                                     src={Detalhes}
                                      alt="Detalhes" 

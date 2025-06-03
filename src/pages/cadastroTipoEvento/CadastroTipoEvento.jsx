@@ -138,6 +138,7 @@ const CadastrarTipoEvento = () => {
                 tituloEvento="Titulo"
                 tipoLista="tiposEventos"
                 lista={listaTipoEvento}
+                visible="none"
 
                 deletar={removerTipoEvento}
                 funcEditar={editarTipoEvento}
