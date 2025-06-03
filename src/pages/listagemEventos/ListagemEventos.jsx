@@ -8,8 +8,12 @@ import Header from "../../components/header/Header";
 import Comentario from "../../assets/img/comentario.png"
 import Toggle from "../../components/toggle/Toggle";
 import Detalhes from "../../assets/img/informacoes1.png"
+import Modal from "../../components/modal/Modal";
+
+import { format, compareAsc } from "date-fns";
 
 
+// RAFCE CRIA A ESTRUTURA RAPIDA
 const ListagemEventos = () => {
 
     const [listaEventos, setListarEventos] = useState([])
@@ -62,7 +66,7 @@ const ListagemEventos = () => {
         {listaEventos.map((item) => (
               <tr className="item_evento">
                             <td data-cell="Nome" >{item.nomeEvento}</td>
-                            <td data-cell="Data">{item.dataEvento}</td>
+                            <td data-cell="Data">{format(item.dataEvento, "dd/MM/yy")}</td>      
                             <td data-cell="Tipo_Evento">{item.tiposEvento.tituloTipoEvento}</td>
                             <td data-cell="Descricao"><img src={Detalhes} alt="Imagem de descricao" /></td>
                             <td data-cell="Comentar"><img src={Comentario} alt="Imagem de um comentario" /></td>
@@ -74,9 +78,11 @@ const ListagemEventos = () => {
 
                 </div>
             </section>
+            <Modal />
             <Footer />
         </>
     )
 }
+
 
 export default ListagemEventos;
