@@ -78,8 +78,8 @@ const ListagemEventos = () => {
 
                 </div>
             </section>
-            <Modal />
             <Footer />
+            <Modal />
         </>
     )
 }
