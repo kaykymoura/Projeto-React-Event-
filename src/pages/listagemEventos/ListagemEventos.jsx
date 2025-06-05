@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../Services/services";
+import Swal from 'sweetalert2';
 
 import "./ListagemEventos.css";
 import Footer from "../../components/footer/Footer";
@@ -17,6 +18,18 @@ const ListagemEventos = () => {
     const [dadosModal, setDadosModal] = useState({});
     const [modalAberto, setModalAberto] = useState(false);
     const [usuarioId, setUsuarioId] = useState("4E200DDE-6A70-4FE2-BAAE-54180A14577C");
+
+    const [filtroData, setFiltroData] = useState(["todos"]);
+    
+
+    function alertar(icone, mensagem) {
+        Swal.fire({
+            title: mensagem,
+            icon: icone
+        });
+    }
+
+
 
     async function listarEventos() {
         try {
@@ -74,21 +87,41 @@ const ListagemEventos = () => {
 
     async function manipularPresenca(idEvento, presenca, idPresenca) {
 
-        console.log("ssssssssss");
-        
         try {
             if (presenca && idPresenca != "") {
                 //atualizacao: situacao para FALSE
+                await api.put(`PresencasEventos/${idPresenca}`, { situacao: false });
+                Swal.fire('Removido!', 'Sua presenca foi removida.', 'success');
             } else if (idPresenca != "") {
                 //atualizacao: situacao para TRUE
+                await api.put(`PresencasEventos/${idPresenca}`, { situacao: true });
+                Swal.fire('Confirmado!', 'Sua presenca foi confirmada.', 'success');
             } else {
                 //cadastrar uma nova presenca
+                await api.post("PresencasEventos", { situacao: true, idUsuario: usuarioId, idEvento: idEvento });
+                Swal.fire('Confirmado!', 'Sua presenca foi confirmada.', 'success');
             }
+            listarEventos()
         } catch (error) {
             console.log(error);
 
         }
     }
+    function filtrarEventos() {
+        const hoje = new Date();
+
+        return listaEventos.filter(evento => {
+            const dataEvento = new Date(evento.dataEvento);
+
+            if (filtroData.includes("todos")) return true;
+            if (filtroData.includes("futuros") && dataEvento > hoje) return true;
+            if (filtroData.includes("passados") && dataEvento < hoje) return true;
+
+            return false;
+        });
+    }
+
+   
 
     return (
         <>
@@ -97,11 +130,12 @@ const ListagemEventos = () => {
                 <h1>Eventos</h1>
                 <hr />
                 <div className="tabela_evento">
-                    <select name="Todos os Eventos" id="" className="select_evento">
-                        <option value="" disabled selected>Todos os Eventos</option>
-                        <option value="">op 1</option>
-                        <option value="">op 2</option>
-                        <option value="">op 3</option>
+                    <select onChange={(e) => setFiltroData(e.target.value)}
+                        name="Todos os Eventos" id="" className="select_evento">
+                        <option value="todos" selected>Todos os Eventos</option>
+                        <option value="futuros">Somente futuros</option>
+                        <option value="passados">Somente passados</option>
+
                     </select>
                     <thead>
                         <tr className="table_evento">
@@ -114,7 +148,7 @@ const ListagemEventos = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {listaEventos.map((item) => (
+                        {filtrarEventos() && filtrarEventos().map((item) => (
                             <tr className="item_evento" key={item.idEvento}>
                                 <td data-cell="Nome">{item.nomeEvento}</td>
                                 <td data-cell="Data">{format(item.dataEvento, "dd/MM/yy")}</td>
@@ -131,7 +165,7 @@ const ListagemEventos = () => {
                                 </td>
                                 <td data-cell="Botao">
                                     <Toggle presenca={item.possuiPresenca}
-                                     manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)} />
+                                        manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)} />
                                 </td>
                             </tr>
                         ))}
