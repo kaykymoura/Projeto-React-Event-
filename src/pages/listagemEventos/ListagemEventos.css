@@ -1,3 +1,5 @@
+/* ListagemEventos.css */
+
 .select_evento {
     border-left: none;
     border-right: none;
@@ -13,12 +15,10 @@
 
 .listagem_evento {
     height: 570px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px 0;
-
     background-color: white;
     color: black;
 }
@@ -27,7 +27,6 @@
     text-transform: uppercase;
     color: black;
     font-size: 19px;
-
 }
 
 .listagem_evento hr {
@@ -38,28 +37,21 @@
     border-color: #B51D44;
     margin-top: 5px;
     color: white;
-
 }
 
 .tabela_evento {
     width: 80%;
     margin-top: 40px;
-
     text-align: center;
     /* border-bottom: 1px solid #201849; */
-
     margin-left: -60px;
-
 }
-
 
 .tabela_evento .table_evento :first-child {
     width: 300px;
-
 }
 
 .tabela_evento .table_evento :nth-child(2) {
-    
     text-align: start;
 }
 
@@ -67,15 +59,39 @@
     border-bottom: 2px solid #B51D44;
     width: 174px;
     margin-top: 40px;
-
 }
 
 .item_evento td {
     padding: 20px 5px 20px;
     border-bottom: #201849 1px solid;
-
 }
 
 .tabela_evento .item_evento :nth-child(2) {
     text-align: start;
+}
+
+
+.listagem_evento td button {
+    /* Garante que o fundo seja transparente, anulando estilos padrão do navegador */
+    background: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    /* Define o cursor para indicar que é clicável */
+    cursor: pointer; 
+    /* Faz o botão se comportar como um elemento de bloco mas ainda inline com o texto */
+    display: inline-block; /* Otimizado para elementos dentro de tabelas */
+    font-size: 0;
+    line-height: 0;
+}
+
+
+.listagem_evento td button img {
+    display: block; 
+    max-width: 24px; 
+    height: auto; 
+  
+   
+    margin: 0 auto;
 }
