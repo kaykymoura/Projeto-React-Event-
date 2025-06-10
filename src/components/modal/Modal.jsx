@@ -35,23 +35,21 @@ const Modal = (props) => {
         idEvento: props.idEvento,
         descricao: novoComentario,
       });
-      // Limpa o campo de input após cadastrar (comportamento da prof)
+
       setNovoComentario("");
-      // Atualiza a lista de comentários após o cadastro (comportamento da prof)
       listarComentarios();
     } catch (error) {
-      console.log(error); // Mantido console.log
+      console.log(error); 
     }
   }
 
-  // Renomeada para seguir a consistência da professora (excluirComentario)
+
   async function excluirComentario(idComentario) {
     try {
       await api.delete(`ComentariosEventos/${idComentario}`);
-      // Atualiza a lista de comentários após a exclusão (comportamento da prof)
       listarComentarios();
     } catch (error) {
-      console.log(error); // Mantido console.log
+      console.log(error); 
     }
   }
 
@@ -68,19 +66,12 @@ const Modal = (props) => {
               {comentarios.map((item) => (
                 <div key={item.idComentarioEvento}>
                   <strong>{item.usuario.nomeUsuario}</strong>
-                  {/* O código da professora não verifica se o usuário é o autor para exibir o botão.
-                      Portanto, seguindo a restrição "sem coisas novas", ele aparece para todos.
-                      Se a regra for que "o botão de lixeira aparece para todos, mas só o dono pode deletar",
-                      este é o comportamento.
-                      Se a regra for "só o dono vê o botão", a linha de verificação com `usuarioId` seria necessária.
-                      Mantido o comportamento de exibir sempre, conforme seu código original e a ausência de
-                      lógica de comparação de usuário no código da professora que você enviou.
-                   */}
+  
                   <img
                     src={ImgDeletar}
                     alt="Deletar"
                     onClick={() => excluirComentario(item.idComentarioEvento)}
-                    style={{ cursor: "pointer" }} // Apenas para indicar que é clicável
+                    style={{ cursor: "pointer" }} 
                   />
                   <p>{item.descricao}</p>
                   <hr />

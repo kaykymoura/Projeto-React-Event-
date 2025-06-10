@@ -17,7 +17,7 @@ const ListagemEventos = () => {
     const [tipoModal, setTipoModal] = useState("");
     const [dadosModal, setDadosModal] = useState({});
     const [modalAberto, setModalAberto] = useState(false);
-    const [usuarioId, setUsuarioId] = useState("4E200DDE-6A70-4FE2-BAAE-54180A14577C");
+    const [usuarioId, setUsuarioId] = useState("38FD4C8B-01D0-4B66-80B1-BF87A3F04365");
 
     const [filtroData, setFiltroData] = useState(["todos"]);
     

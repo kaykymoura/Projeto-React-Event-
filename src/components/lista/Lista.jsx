@@ -23,9 +23,9 @@ const Lista = (props) => {
                 {props.lista && props.lista.length > 0 ? (
                     props.lista.map((item) => (
                         <tbody>
-                            <tr className="item_lista" key={props.tipoLista == "tiposEventos" ? item.idTipoEvento : (props.tipoLista == "tipoUsuarios" ? item.idTipoUsuario: item.idEvento)}>
+                            <tr className="item_lista" key={props.tipoLista == "tiposEventos" ? item.idTipoEvento : (props.tipoLista == "tiposUsuarios" ? item.idTipoUsuario: item.idEvento)}>
                                 <td data-cell="Nome" >
-                                    {props.tipoLista == "tiposEventos" ? item.tituloTipoEvento : (props.tipoLista == "tipoUsuarios" ? item.tituloTipoUsuario: item.nomeEvento)}
+                                    {props.tipoLista == "tiposEventos" ? item.tituloTipoEvento : (props.tipoLista == "tiposUsuarios" ? item.tituloTipoUsuario: item.nomeEvento)}
                                 </td>
                                 <td style={{ display: props.visible }} data-cell="Data">
                                     {item.dataEvento}
