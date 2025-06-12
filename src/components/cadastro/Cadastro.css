@@ -97,3 +97,67 @@
     padding-inline-start: 50px;
     
 }
+@media (max-width: 1024px) {
+    .section_cadastro {
+        flex-direction: column;
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .banner_cadastro {
+        margin-left: 0;
+        margin-bottom: 30px;
+        justify-content: center;
+    }
+
+    .banner_cadastro img {
+        height: 200px;
+    }
+
+    .form_cadastro {
+        margin-top: 0;
+        margin-bottom: 100px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .campo_cad_titulo input,
+    .campo_cad_titulo select,
+    .campo_cad_titulo textarea {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .select_cad {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .campos_cadastro {
+        padding-inline-start: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .titulo {
+        font-size: 11px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .titulo hr {
+        width: 150px;
+    }
+
+    .banner_cadastro img {
+        height: 150px;
+    }
+
+    .form_cadastro {
+        margin-bottom: 50px;
+    }
+}

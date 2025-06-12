@@ -1,20 +1,24 @@
 import "./Login.css"
+import 'animate.css';
+import secureLocalStorage from "react-secure-storage";
+import Swal from 'sweetalert2';
 import Logo from "../../assets/img/logo1.svg";
 import Logo_banner from "../../assets/img/undraw_login_re_4vu2\ 1.png";
 import Botao from "../../components/botao/Botao";
 import api from "../../Services/services"
 import { useState } from "react";
-import Swal from 'sweetalert2';
-import 'animate.css';
 import { userDecodeToken } from "../../auth/Auth.js";
-import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext.js";
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+
     const navigate = useNavigate();
+
+    const { setUsuario } = useAuth()
 
     function mostrarAlerta({ titulo, mensagem, corPrimaria, corSecundaria, textoBotao }) {
         Swal.fire({
@@ -82,72 +86,70 @@ const Login = () => {
 
                 if (token) {
                     const tokenDecodificado = userDecodeToken(token);
+
+                    setUsuario(tokenDecodificado);
+
                     secureLocalStorage.setItem("tokenLogin", JSON.stringify(tokenDecodificado));
 
 
-                    await Swal.fire({
-                        title: `
-        <span style="
-            background: linear-gradient(90deg, #00c851, #007e33);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            font-size: 2.3rem;
-            text-shadow: 1px 1px 6px #007e3388;
-            display: inline-block;
-            animation: pulseGlow 2s infinite alternate;
-        ">
-            Login realizado!
-        </span>
-        `,
-                        html: `
-        <p style="
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
-            color: #007e33cc;
-            text-align: center;
-            margin-top: 1rem;
-            text-shadow: 0 0 2px #00c851aa;
-        ">
-            Você foi autenticado com sucesso.<br>Redirecionando...
-        </p>
-        <svg width="90" height="90" viewBox="0 0 64 64" fill="none" style="margin: 1.2rem auto; display: block; animation: floatUpDown 3s ease-in-out infinite;">
-            <circle cx="32" cy="32" r="30" stroke="#00c851" stroke-width="3" />
-            <path d="M20 32L28 40L44 24" stroke="#007e33" stroke-width="4" stroke-linecap="round" />
-        </svg>
-        `,
-                        background: 'rgba(255, 255, 255, 0.25)',
-                        backdrop: `
-        rgba(0,0,0,0.2)
-        center center
-        no-repeat
-        `,
-                        timer: 2000,               // fecha após 2 segundos
-                        timerProgressBar: true,    // barra de progresso
-                        showConfirmButton: false,  // esconde botão
-                        willClose: () => {
-                            if (tokenDecodificado.tipoUsuario === "aluno") {
-                                navigate("/ListagemEventos");
-                            } else {
-                                navigate("/CadastrarEvento");
-                            }
-                        },
-                        customClass: {
-                            popup: 'glassmorphic-popup'
-                        },
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-                    });
+                                await Swal.fire({
+                                    title: `
+                    <span style="
+                        background: linear-gradient(90deg, #00c851, #007e33);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        font-weight: 700;
+                        font-size: 2.3rem;
+                        text-shadow: 1px 1px 6px #007e3388;
+                        display: inline-block;
+                        animation: pulseGlow 2s infinite alternate;
+                    ">
+                        Login realizado!
+                    </span>
+                    `,
+                                    html: `
+                    <p style="
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 1.15rem;
+                        color: #007e33cc;
+                        text-align: center;
+                        margin-top: 1rem;
+                        text-shadow: 0 0 2px #00c851aa;
+                    ">
+                        Você foi autenticado com sucesso.<br>Redirecionando...
+                    </p>
+                    <svg width="90" height="90" viewBox="0 0 64 64" fill="none" style="margin: 1.2rem auto; display: block; animation: floatUpDown 3s ease-in-out infinite;">
+                        <circle cx="32" cy="32" r="30" stroke="#00c851" stroke-width="3" />
+                        <path d="M20 32L28 40L44 24" stroke="#007e33" stroke-width="4" stroke-linecap="round" />
+                    </svg>
+                    `,
+                                    background: 'rgba(255, 255, 255, 0.25)',
+                                    backdrop: `
+                    rgba(0,0,0,0.2)
+                    center center
+                    no-repeat
+                    `,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    showConfirmButton: false,
+                                    willClose: () => {
+                                        if (tokenDecodificado.tipoUsuario === "Aluno") {
+                                            navigate("/ListagemEventos");
+                                        } else {
+                                            navigate("/CadastrarEvento");
+                                        }
+                                    },
+                                    customClass: {
+                                        popup: 'glassmorphic-popup'
+                                    },
+                                    showClass: {
+                                        popup: 'animate__animated animate__fadeInDown'
+                                    },
+                                    hideClass: {
+                                        popup: 'animate__animated animate__fadeOutUp'
+                                    }
+                                });
                     
-                    if (tokenDecodificado.tipoUsuario === "aluno") {
-                        navigate("/ListagemEventos");
-                    } else {
-                        navigate("/CadastrarEvento");
-                    }
                 }
             } catch (error) {
                 console.log(error);

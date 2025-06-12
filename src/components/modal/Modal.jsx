@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import ImgDeletar from "../../assets/img/Deletarzinho.png";
-import "./Modal.css"; // Verifique se o nome do arquivo CSS é 'Modal.css' ou 'Model.css'
+import "./Modal.css";
 import api from "../../Services/services";
+import { useAuth } from "../../contexts/AuthContext.js";
 
 const Modal = (props) => {
   const [comentarios, setComentarios] = useState([]);
   const [novoComentario, setNovoComentario] = useState("");
   // Usuário fixo **por hora** - igual ao código da professora
-  const [usuarioId, setUsuarioId] = useState(
-    "4E200DDE-6A70-4FE2-BAAE-54180A14577C"
-  );
+  const { usuario } = useAuth();
+
 
   async function listarComentarios() {
     try {
@@ -18,12 +18,11 @@ const Modal = (props) => {
       );
       setComentarios(resposta.data);
     } catch (error) {
-      console.log(error); // Mantido console.log como no seu código original e no da prof
+      console.log(error); 
     }
   }
 
-  // O useEffect garante que os comentários sejam listados quando o componente é montado
-  // A dependência props.idEvento foi adicionada para garantir recarregamento se o ID do evento mudar.
+  
   useEffect(() => {
     listarComentarios();
   }, [props.idEvento]);
@@ -31,7 +30,7 @@ const Modal = (props) => {
   async function cadastrarComentario() {
     try {
       await api.post("ComentariosEventos", {
-        idUsuario: usuarioId,
+        idUsuario:  usuario.idUsuario,
         idEvento: props.idEvento,
         descricao: novoComentario,
       });

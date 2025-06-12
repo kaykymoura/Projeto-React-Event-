@@ -95,3 +95,62 @@
    
     margin: 0 auto;
 }
+
+/* Estilo glassmorphic para o popup do SweetAlert */
+.glassmorphic-popup {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-radius: 15px !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  font-family: 'Poppins', sans-serif;
+  color: #333 !important;
+  padding: 2rem !important;
+  max-width: 400px;
+}
+
+/* Botão confirmar estilizado */
+.swal2-confirm {
+  background-color: #11998e !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 8px !important;
+  transition: background-color 0.3s ease;
+  border: none !important;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(17, 153, 142, 0.5);
+}
+.swal2-confirm:hover {
+  background-color: #0f7c6c !important;
+}
+
+/* Animação para o título (pulse glow) */
+@keyframes pulseGlow {
+  0% {
+    text-shadow:
+      0 0 5px #38ef7d,
+      0 0 10px #38ef7d,
+      0 0 20px #38ef7d,
+      0 0 40px #11998e;
+  }
+  100% {
+    text-shadow:
+      0 0 10px #38ef7d,
+      0 0 20px #38ef7d,
+      0 0 30px #11998e,
+      0 0 60px #11998e;
+  }
+}
+
+/* Animação leve de flutuação para o SVG */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
