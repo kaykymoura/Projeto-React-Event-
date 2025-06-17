@@ -36,7 +36,6 @@ const BotaoAcessibilidade = () => {
     }
   }, []);
 
-  // Função para ativar/desativar reconhecimento de voz
   function toggleReconhecimento() {
     if (!recognition.current) {
       alert("Reconhecimento de voz não disponível nesse navegador.");
@@ -51,19 +50,17 @@ const BotaoAcessibilidade = () => {
     }
   }
 
-  // Função para aumentar/diminuir fonte
   function toggleFonte() {
     setFonteGrande((ativo) => {
       if (!ativo) {
-        document.body.style.fontSize = "1.25rem"; // aumenta fonte
+        document.body.style.fontSize = "1.25rem";
       } else {
-        document.body.style.fontSize = ""; // volta ao padrão
+        document.body.style.fontSize = "";
       }
       return !ativo;
     });
   }
 
-  // Função para alternar contraste alto (modo escuro + cores invertidas simples)
   function toggleContraste() {
     setContrasteAtivo((ativo) => {
       if (!ativo) {
@@ -77,16 +74,13 @@ const BotaoAcessibilidade = () => {
     });
   }
 
-  // Função para ativar/desativar modo leitura (exemplo)
   function toggleModoLeitura() {
     setModoLeituraAtivo((ativo) => {
       if (!ativo) {
-        // esconder imagens e vídeos
         document.querySelectorAll("img, video").forEach((el) => {
           el.style.display = "none";
         });
       } else {
-        // mostrar imagens e vídeos
         document.querySelectorAll("img, video").forEach((el) => {
           el.style.display = "";
         });
@@ -95,10 +89,14 @@ const BotaoAcessibilidade = () => {
     });
   }
 
-  // Alterna o painel aberto/fechado
   function togglePainel() {
     setPainelAberto((aberto) => !aberto);
   }
+
+  // Cores ajustadas
+  const corPrincipal = "#30706F";
+  const corAtivo = "#469F9E";
+  const sombraAtivo = "#88c9c8";
 
   return (
     <div
@@ -110,7 +108,7 @@ const BotaoAcessibilidade = () => {
         transform: "translateY(-50%)",
         width: painelAberto ? 220 : 48,
         height: painelAberto ? 320 : 48,
-        background: "linear-gradient(135deg, #b71c1c, #f44336)",
+        background: `linear-gradient(135deg, ${corPrincipal}, ${corAtivo})`,
         borderTopLeftRadius: 12,
         borderBottomLeftRadius: 12,
         boxShadow: "-3px 3px 10px rgba(0,0,0,0.25)",
@@ -150,7 +148,6 @@ const BotaoAcessibilidade = () => {
         }}
         title="Abrir painel de acessibilidade"
       >
-        {/* Ícone de acessibilidade (bonequinho universal) */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="white"
@@ -163,7 +160,7 @@ const BotaoAcessibilidade = () => {
         </svg>
       </button>
 
-      {/* Conteúdo do painel que aparece quando aberto */}
+      {/* Conteúdo do painel */}
       {painelAberto && (
         <div
           id="conteudoAcessibilidade"
@@ -179,14 +176,14 @@ const BotaoAcessibilidade = () => {
           <button
             onClick={toggleReconhecimento}
             style={{
-              backgroundColor: reconhecimentoAtivo ? "#f44336" : "#b71c1c",
+              backgroundColor: reconhecimentoAtivo ? corAtivo : corPrincipal,
               border: "none",
               borderRadius: 8,
               color: "white",
               padding: "10px 14px",
               cursor: "pointer",
               fontWeight: "bold",
-              boxShadow: reconhecimentoAtivo ? "0 0 8px #ff8a80" : "none",
+              boxShadow: reconhecimentoAtivo ? `0 0 8px ${sombraAtivo}` : "none",
               transition: "background-color 0.3s",
             }}
             aria-pressed={reconhecimentoAtivo}
@@ -198,14 +195,14 @@ const BotaoAcessibilidade = () => {
           <button
             onClick={toggleFonte}
             style={{
-              backgroundColor: fonteGrande ? "#f44336" : "#b71c1c",
+              backgroundColor: fonteGrande ? corAtivo : corPrincipal,
               border: "none",
               borderRadius: 8,
               color: "white",
               padding: "10px 14px",
               cursor: "pointer",
               fontWeight: "bold",
-              boxShadow: fonteGrande ? "0 0 8px #ff8a80" : "none",
+              boxShadow: fonteGrande ? `0 0 8px ${sombraAtivo}` : "none",
               transition: "background-color 0.3s",
             }}
             aria-pressed={fonteGrande}
@@ -217,14 +214,14 @@ const BotaoAcessibilidade = () => {
           <button
             onClick={toggleContraste}
             style={{
-              backgroundColor: contrasteAtivo ? "#f44336" : "#b71c1c",
+              backgroundColor: contrasteAtivo ? corAtivo : corPrincipal,
               border: "none",
               borderRadius: 8,
               color: "white",
               padding: "10px 14px",
               cursor: "pointer",
               fontWeight: "bold",
-              boxShadow: contrasteAtivo ? "0 0 8px #ff8a80" : "none",
+              boxShadow: contrasteAtivo ? `0 0 8px ${sombraAtivo}` : "none",
               transition: "background-color 0.3s",
             }}
             aria-pressed={contrasteAtivo}
@@ -233,18 +230,17 @@ const BotaoAcessibilidade = () => {
             {contrasteAtivo ? "Contraste Normal" : "Alto Contraste"}
           </button>
 
-          {/* Novo botão para modo leitura */}
           <button
             onClick={toggleModoLeitura}
             style={{
-              backgroundColor: modoLeituraAtivo ? "#f44336" : "#b71c1c",
+              backgroundColor: modoLeituraAtivo ? corAtivo : corPrincipal,
               border: "none",
               borderRadius: 8,
               color: "white",
               padding: "10px 14px",
               cursor: "pointer",
               fontWeight: "bold",
-              boxShadow: modoLeituraAtivo ? "0 0 8px #ff8a80" : "none",
+              boxShadow: modoLeituraAtivo ? `0 0 8px ${sombraAtivo}` : "none",
               transition: "background-color 0.3s",
             }}
             aria-pressed={modoLeituraAtivo}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
 
-
 const normalizarTexto = (texto) => {
   return texto
     .toLowerCase()
@@ -50,7 +49,6 @@ export default function ChatBot() {
   const containerRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Função para fechar com animação
   const fecharChat = () => {
     setAnimando(true);
     setTimeout(() => {
@@ -61,7 +59,6 @@ export default function ChatBot() {
     }, 300);
   };
 
-  // Enviar pergunta e gerar resposta
   const enviarPergunta = () => {
     if (!pergunta.trim()) return;
     const resposta = getResposta(pergunta);
@@ -69,13 +66,11 @@ export default function ChatBot() {
     setPergunta('');
   };
 
-  // Ao digitar, limpa mensagens antigas para mostrar só a nova
   const aoDigitar = (e) => {
     setPergunta(e.target.value);
     if (historico.length > 0) setHistorico([]);
   };
 
-  // Enter envia pergunta
   const aoPressionarEnter = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -83,7 +78,6 @@ export default function ChatBot() {
     }
   };
 
-  // Scroll automático no final ao responder
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
@@ -107,7 +101,7 @@ export default function ChatBot() {
           aria-label="Abrir chatbot"
           title="Abrir chatbot"
           style={{
-            backgroundColor: '#d32f2f',
+            backgroundColor: '#30706f',
             border: 'none',
             borderRadius: '50%',
             width: 56,
@@ -115,7 +109,7 @@ export default function ChatBot() {
             color: 'white',
             fontSize: 28,
             cursor: 'pointer',
-            boxShadow: '0 0 10px rgba(211,47,47,0.7)',
+            boxShadow: '0 0 10px rgba(48,112,111,0.7)',
             transition: 'transform 0.3s ease',
           }}
           onMouseDown={(e) => (e.currentTarget.style.transform = 'scale(0.9)')}
@@ -132,10 +126,10 @@ export default function ChatBot() {
             width: '100%',
             height: 460,
             background: '#fff',
-            border: '2px solid #d32f2f',
+            border: '2px solid #30706f',
             borderRadius: 12,
             padding: 16,
-            boxShadow: '0 0 12px rgba(211,47,47,0.5)',
+            boxShadow: '0 0 12px rgba(48,112,111,0.5)',
             display: 'flex',
             flexDirection: 'column',
             opacity: animando ? 0 : 1,
@@ -152,7 +146,7 @@ export default function ChatBot() {
               marginBottom: 16,
             }}
           >
-            <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#d32f2f' }}>Chatbot</h3>
+            <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#30706f' }}>Chatbot</h3>
             <button
               onClick={fecharChat}
               aria-label="Fechar chatbot"
@@ -161,7 +155,7 @@ export default function ChatBot() {
                 backgroundColor: 'transparent',
                 border: 'none',
                 fontSize: 26,
-                color: '#d32f2f',
+                color: '#30706f',
                 cursor: 'pointer',
                 fontWeight: 'bold',
                 lineHeight: 1,
@@ -203,7 +197,7 @@ export default function ChatBot() {
                   <div
                     style={{
                       alignSelf: 'flex-end',
-                      backgroundColor: '#d32f2f',
+                      backgroundColor: '#30706f',
                       color: 'white',
                       borderRadius: '18px 18px 0 18px',
                       padding: '8px 14px',
@@ -256,7 +250,7 @@ export default function ChatBot() {
                 padding: 10,
                 fontSize: '1rem',
                 borderRadius: 8,
-                border: '1.8px solid #d32f2f',
+                border: '1.8px solid #30706f',
                 outline: 'none',
                 fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
                 transition: 'border-color 0.3s ease',
@@ -268,7 +262,7 @@ export default function ChatBot() {
               type="submit"
               disabled={!pergunta.trim()}
               style={{
-                backgroundColor: pergunta.trim() ? '#d32f2f' : '#f4cccc',
+                backgroundColor: pergunta.trim() ? '#30706f' : '#a1b1b0',
                 border: 'none',
                 borderRadius: 8,
                 color: 'white',

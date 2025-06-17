@@ -1,88 +1,84 @@
 .listagem {
-    /* height: 370px; */
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 0;
-
-    background-color: #30706F;
-    color: white;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  background-color: #30706F;
+  color: white;
 }
 
 .listagem h1 {
-    text-transform: uppercase;
-    color: white;
-    font-size: 19px;
+  text-transform: uppercase;
+  color: white;
+  font-size: 19px;
+  margin: 0;
 }
 
 .listagem hr {
-    max-width: 200px;
-    width: 100%;
-    border-style: solid;
-    border-top-width: 1px;
-    border-color: white;
-    margin-top: 5px;
-    color: white;
-}
-
-.item_lista img {
-    height: 20px;
+  max-width: 200px;
+  width: 100%;
+  border-style: solid;
+  border-top-width: 1px;
+  border-color: white;
+  margin-top: 5px;
+  color: white;
 }
 
 .tabela {
-    width: 80%;
-    margin-top: 40px;
-
-    text-align: center;
-    border-bottom: 1px solid white;
-
-    margin-left: -60px;
-  
-
+  width: 80%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  color: white;
 }
 
-
-.tabela .table_cabecalho :first-child {
-    width: 300px;
-    
+.tabela th,
+.tabela td {
+  border-bottom: 1px solid white;
+  padding: 15px 10px;
+  text-align: center;
 }
 
-.tabela .table_cabecalho :nth-child(2) {
-    /* width: 750px; */
-    text-align: start;
+.tabela th:first-child,
+.tabela td:first-child {
+  text-align: left;
+  width: 300px;
 }
 
-.tabela .table_cabecalho th {
-    border-bottom: 1px solid white;
-    width: 600px;
-    margin-top: 40px;
-    
+.tabela th:nth-child(2),
+.tabela td:nth-child(2) {
+  width: 150px;
+  text-align: center;
 }
 
-.item_lista td {
-    padding: 30px 5px 30px;
-    
+.tabela th:nth-child(3),
+.tabela td:nth-child(3) {
+  width: 150px;
 }
 
-.tabela .item_lista :nth-child(2){
-    text-align: start;
-    
+.tabela th,
+.tabela td {
+  font-size: 16px;
 }
+
+.item_lista img {
+  height: 20px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
 
 @media screen and (max-width: 1024px) {
   .tabela {
     width: 95%;
-    margin-left: 0;
   }
 
-  .tabela .table_cabecalho th,
-  .item_lista td {
-    font-size: 15px;
-    padding: 15px 5px;
+  .tabela th,
+  .tabela td {
+    font-size: 14px;
+    padding: 12px 8px;
   }
 }
+
 
 @media screen and (max-width: 768px) {
   .listagem {
@@ -94,33 +90,58 @@
   }
 
   .listagem hr {
-    width: 150px;
+    max-width: 150px;
   }
 
   .tabela {
     width: 100%;
+    display: block;
     overflow-x: auto;
-    margin: 0 auto;
+    -webkit-overflow-scrolling: touch; 
   }
 
-  .tabela .table_cabecalho,
-  .item_lista {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  .tabela thead,
+  .tabela tbody,
+  .tabela tr,
+  .tabela th,
+  .tabela td {
+    display: block;
+  }
+
+  .tabela thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .tabela tr {
+    border: 1px solid white;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .tabela td {
+    border: none;
+    border-bottom: 1px solid white;
+    position: relative;
+    padding-left: 50%;
     text-align: left;
+    font-size: 14px;
   }
 
-  .tabela .table_cabecalho th:nth-child(2),
-  .tabela .table_cabecalho th:nth-child(5),
-  .item_lista td:nth-child(2),
-  .item_lista td:nth-child(5) {
-    display: none;
+  .tabela td:last-child {
+    border-bottom: none;
   }
 
-  .tabela .item_lista td {
-    flex: 1 1 45%;
-    padding: 10px 5px;
+  .tabela td::before {
+    content: attr(data-cell);
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    white-space: nowrap;
   }
 
   .item_lista img {
@@ -129,22 +150,19 @@
   }
 }
 
+
 @media screen and (max-width: 425px) {
   .listagem h1 {
     font-size: 15px;
   }
 
-  .tabela .item_lista td {
+  .tabela td {
     font-size: 13px;
+    padding-left: 45%;
   }
 
-  .item_lista {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .tabela .item_lista td {
-    width: 100%;
-    padding-left: 10px;
+  .tabela td::before {
+    left: 10px;
+    font-size: 13px;
   }
 }

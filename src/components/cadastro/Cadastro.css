@@ -18,7 +18,7 @@
 }
 
 .titulo hr {
-    border-color: #B51D44;
+    border-color: #30706F;
     width: 230px;
     border-style: solid;
     border-top-width: 2px;
@@ -59,6 +59,7 @@
     flex-direction: column;
     margin-top: 120px;
     margin-bottom: 200px;
+    
 }
 
 .campo_cad_titulo input,
@@ -72,6 +73,7 @@
     font-size: 15px;
     width: 356px;
     display: flex;
+    background-color: #FFF8DC;
 }
 
 .select_cad {

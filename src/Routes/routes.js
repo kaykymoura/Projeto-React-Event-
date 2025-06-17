@@ -42,7 +42,7 @@ const Rotas = () => {
                 <Route element={<Privado tipoPermitido="Administrador" Item={CadastroTipoEvento} />} path="/CadastrarTipoEvento" />
                 <Route element={<Privado tipoPermitido="Administrador" Item={CadastrarEvento} />} path="/CadastrarEvento" />
                 <Route element={<Privado tipoPermitido="Aluno" Item={ListagemEventos} />} path="/ListagemEventos"/>
-                <Route element={<Privado tipoPermitido="Aluno" Item={Home} />} path="/Home"/>
+                {/* <Route element={<Privado tipoPermitido="Aluno" Item={Home} />} path="/Home"/> */}
                 
 
             </Routes>

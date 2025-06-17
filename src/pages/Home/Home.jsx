@@ -1,13 +1,16 @@
 import "./Home.css"
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer"
+import { useEffect, useState } from "react";
+import api from "../../Services/services";
 
 import Banner from "../../assets/img/BannerHome.png"
 import Mapa from "../../assets/img/Mapa.png"
 import Visao from "../../assets/img/Visao.png"
 
-
 const Home = () => {
+
+    
     return (
         <>
             <Header

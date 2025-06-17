@@ -37,7 +37,7 @@
 
 .titulo hr {
     width: 125px;
-    border: #b51d44 solid 1px;
+    border: #30706F solid 1px;
     margin-bottom: 50px;
 }
 
@@ -50,7 +50,7 @@
 .item {
     width: 250px;
     height: 250px;
-    border: solid #b51d44 2px;
+    border: solid #30706F 2px;
     border-radius: 5px;
     padding: 30px;
     margin-bottom: 60px;
@@ -75,7 +75,7 @@
     border: none;
     background-color: white;
     font-size: 18px;
-    color: #B51D44;
+    color: #30706F;
 }
 
 .visao img {
@@ -104,7 +104,7 @@
 
 .titulo_2 hr {
     width: 125px;
-    border: #b51d44 solid 1px;
+    border: #30706F solid 1px;
     margin-bottom: 50px;
 }
 
