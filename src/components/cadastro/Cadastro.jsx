@@ -4,9 +4,13 @@ import Botao from "../botao/Botao"
 const Cadastro = (props) => {
     return (
         <main className="main_cadastro">
-            <div className="titulo">
-                <h1>{props.titulo}</h1>
-                <hr />
+            
+            {/* Bloco com fundo exclusivo para o título */}
+            <div className="bloco_titulo">
+                <div className="titulo">
+                    <h1>{props.titulo}</h1>
+                    <hr />
+                </div>
             </div>
 
             <section className="section_cadastro">
@@ -15,50 +19,58 @@ const Cadastro = (props) => {
                 </div>
 
                 <form onSubmit={props.funcCadastro} className="layout_grid form_cadastro">
-
                     <div className="campos_cadastro">
                         <div className="campo_cad_titulo">
                             <label htmlFor="Nome"></label>
-                            <input type="text"
+                            <input
+                                type="text"
                                 name="nome"
                                 placeholder={props.place}
                                 value={props.valorInput}
                                 onChange={(e) => props.setValorInput(e.target.value)}
                             />
-
                         </div>
+
                         <div className="campo_cad_titulo">
-                            <input type="date"
+                            <input
+                                type="date"
                                 style={{ display: props.data }}
                                 value={props.valorDate}
                                 onChange={(e) => props.setValorDate(e.target.value)}
                             />
                         </div>
+
                         <div className="campo_cad_titulo opcao" style={{ display: props.visibilidade }}>
                             <label htmlFor="Nome"></label>
-                            <select name="Tipo De Evento" id="" className="select_cad"
+                            <select
+                                name="Tipo De Evento"
+                                className="select_cad"
                                 value={props.valorSelect}
                                 onChange={(e) => props.setValorSelect(e.target.value)}
                             >
-
                                 <option value="" disabled selected>Tipo de Evento</option>
-                                {props.lista && props.lista.length > 0 && props.lista.map((itemTipoEvento) => (
-                                    (
-                                        <option value={itemTipoEvento.idTipoEvento}>{itemTipoEvento.tituloTipoEvento}</option>
-                                    ))
-                                )}
+                                {props.lista?.map((itemTipoEvento) => (
+                                    <option key={itemTipoEvento.idTipoEvento} value={itemTipoEvento.idTipoEvento}>
+                                        {itemTipoEvento.tituloTipoEvento}
+                                    </option>
+                                ))}
                             </select>
-
                         </div>
+
                         <div className="campo_cad_titulo">
-                            <select name="" id=""
+                            <select
+                                name=""
+                                id=""
                                 style={{ display: props.Inst }}
                                 value={props.valorSelect2}
                                 onChange={(e) => props.setValorSelect2(e.target.value)}
                             >
                                 <option selected value="">Senai</option>
                             </select>
-                            <textarea name="" id="" placeholder="Descrição" className="descricao"
+
+                            <textarea
+                                placeholder="Descrição"
+                                className="descricao"
                                 style={{ display: props.desc }}
                                 value={props.valorText}
                                 onChange={(e) => props.setValorText(e.target.value)}

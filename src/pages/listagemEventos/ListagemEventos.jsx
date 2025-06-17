@@ -172,7 +172,8 @@ const ListagemEventos = () => {
             </section>
             <Footer />
             {modalAberto && (
-                <Modal
+                <Modal 
+                    
                     titulo={tipoModal === "descricaoEvento" ? "Descrição do evento" : "Comentário"}
                     tipoModel={tipoModal}
                     idEvento={dadosModal.idEvento}

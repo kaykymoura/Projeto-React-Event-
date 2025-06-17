@@ -125,7 +125,7 @@ const Modal = (props) => {
             <>
               {comentarios.map((item) => (
                 <div key={item.idComentarioEvento}>
-                  <strong>{item.usuario.nomeUsuario}</strong>
+                  <strong className="className_comentario_apos_comentar">{item.usuario.nomeUsuario}</strong>
   
                   <img
                     src={ImgDeletar}
@@ -133,18 +133,19 @@ const Modal = (props) => {
                     onClick={() => excluirComentario(item.idComentarioEvento)}
                     style={{ cursor: "pointer" }} 
                   />
-                  <p>{item.descricao}</p>
+                  <p className="className_comentario_apos_comentar_p">{item.descricao}</p>
                   <hr />
                 </div>
               ))}
               <div>
-                <input
+                <input 
+                  className="className_comentario"
                   type="text"
                   placeholder="Escreva seu comentario..."
                   value={novoComentario}
                   onChange={(e) => setNovoComentario(e.target.value)}
                 />
-                <button onClick={cadastrarComentario}>Cadastrar</button>
+                <button className="className_botao" onClick={cadastrarComentario}>Cadastrar</button>
               </div>
             </>
           )}

@@ -2,6 +2,7 @@
   0% {
     text-shadow: 1px 1px 8px rgba(142, 45, 226, 0.4);
   }
+
   100% {
     text-shadow: 0 0 25px #8e2de2;
   }
@@ -12,6 +13,7 @@
     transform: translateY(0);
     filter: drop-shadow(0 0 5px #7b3fe4aa);
   }
+
   50% {
     transform: translateY(-15px);
     filter: drop-shadow(0 0 20px #7b3fe4cc);
@@ -49,85 +51,86 @@
 }
 
 
-.main_login{
-    display: flex;
-    height: 100vh;
-    background-color: #B51D44;
+.main_login {
+  display: flex;
+  height: 100vh;
+  background-color: #30706F;
 }
 
-.logo_banner{
+.logo_banner {
 
-    flex: 1;
+  flex: 1;
 
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.logo_banner img{
-    width: 470px;
-}
-
-
- .section_login{
-    flex: 1;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
- }
-
- .form_login{
-    color: white;
-
-    width: 50%;
-    height: 50%;
-
-    display: flex;
-    justify-content: space-around;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.campos_login{
-    width: 100%;
+.logo_banner img {
+  width: 470px;
 }
 
 
-.campo_input{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 50px;
+.section_login {
+  flex: 1;
+  background-color: #FFF8DC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.campo_input input{
-    height: 30px;
+.form_login {
+  color: #FFF8DC;
 
+  width: 50%;
+  height: 50%;
 
-    padding: 0 10px;
-
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-color: #B4A9A9;
-
-    outline: none;
-    color: #B4A9A9;
+  display: flex;
+  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.form_login a{
-    margin-bottom: 40px;
-    color: #A6A0A0;
-    text-decoration: none;
+.campos_login {
+  width: 100%;
+}
+
+
+.campo_input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.campo_input input {
+  height: 30px;
+  padding: 0 10px;
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #B4A9A9;
+
+  outline: none;
+  color: #B4A9A9;
+
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+.form_login a {
+  margin-bottom: 40px;
+  color: #A6A0A0;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {
-    .logo_banner{
-        display: none;
-    }
+  .logo_banner {
+    display: none;
+  }
 }

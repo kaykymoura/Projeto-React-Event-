@@ -56,3 +56,26 @@
 .model_conteudo button:hover {
   background-color: #B51D44;
 }
+
+.model_conteudo input[type="text"] {
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    border-bottom-color: black;
+    width: 100%;
+    border-radius: 0;
+    outline: none;
+   }
+
+.className_comentario_apos_comentar {
+  margin-right: 358px;
+}
+
+.model_conteudo p {
+    margin: 0;
+    margin-top: 20px;
+}
+
+.className_botao{
+  width: 440px;
+}
