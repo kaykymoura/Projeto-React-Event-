@@ -1,13 +1,17 @@
 
 import './App.css';
-import ListagemEventos from './pages/listagemEventos/ListagemEventos';
+
 import Rotas from './Routes/routes';
+import ChatBot from "./components/Chatbot/Chatbot";
+
+import BotaoAcessibilidade from "../../eventos/src/components/acessibilidade/BotaoAcessibilidade";
 
 function App() {
   return (
     <>
       <Rotas/>
-      {/* <ListagemEventos/> */}
+      <BotaoAcessibilidade />
+       <ChatBot />
     </>
   );
 }

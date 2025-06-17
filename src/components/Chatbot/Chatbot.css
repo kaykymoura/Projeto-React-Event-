@@ -1,0 +1,119 @@
+.chatbot-container {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  width: 320px;
+  background: #fff0f0;
+  border: 2px solid #ff4d4f;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(255, 77, 79, 0.4);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  transform: scale(0.8);
+  opacity: 0;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.chatbot-header {
+  background: linear-gradient(45deg, #ff4d4f, #d9363e);
+  color: white;
+  padding: 12px 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-header .fechar {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.chatbot-header .fechar:hover {
+  transform: rotate(90deg);
+}
+
+.chatbot-body {
+  padding: 16px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  flex-grow: 1;
+  animation: fadeIn 0.4s ease;
+}
+
+.mensagem-bot {
+  background-color: #ffeaea;
+  border-left: 4px solid #ff4d4f;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  animation: slideUp 0.4s ease;
+}
+
+.chatbot-footer {
+  display: flex;
+  border-top: 1px solid #ffcccc;
+  padding: 8px;
+}
+
+.chatbot-footer input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ff9999;
+  border-radius: 8px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border 0.2s;
+}
+.chatbot-footer input:focus {
+  border-color: #ff4d4f;
+}
+
+.chatbot-footer button {
+  margin-left: 8px;
+  padding: 8px 14px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+.chatbot-footer button:hover {
+  background-color: #d9363e;
+}
+
+.btn-chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  background-color: #ff4d4f;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  padding: 12px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 77, 79, 0.6);
+  transition: transform 0.3s ease;
+  z-index: 1001;
+}
+.btn-chatbot-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

@@ -14,22 +14,64 @@ const CadastrarTipoDeUsuario = () => {
     const [listaTipoUsuario, setListaTipoUsuario] = useState([])
     // const [deletaTipoUsuario, setDeletaTiposUsuarios] = useState();
 
-    function alertar(icone, mensagem) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
-        Toast.fire({
-            icon: icone,
-            title: mensagem
-        });
+    function alertar(tipo, mensagem) {
+    const cores = {
+        success: { corPrimaria: "#4CAF50", corSecundaria: "#81C784", titulo: "Sucesso" },
+        error: { corPrimaria: "#F44336", corSecundaria: "#E57373", titulo: "Erro" },
+    };
+
+    const { corPrimaria, corSecundaria, titulo } = cores[tipo] || {};
+
+    Swal.fire({
+        title: `
+            <span style="
+                background: linear-gradient(90deg, ${corPrimaria}, ${corSecundaria});
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: 700;
+                font-size: 2.3rem;
+                text-shadow: 1px 1px 6px ${corSecundaria}88;
+                display: inline-block;
+                animation: pulseGlow 2s infinite alternate;
+            ">
+                ${titulo}
+            </span>
+        `,
+        html: `
+            <p style="
+                font-family: 'Poppins', sans-serif;
+                font-size: 1.15rem;
+                color: ${corSecundaria}cc;
+                text-align: center;
+                margin-top: 1rem;
+                text-shadow: 0 0 2px ${corPrimaria}aa;
+            ">
+                ${mensagem}
+            </p>
+            <svg width="90" height="90" viewBox="0 0 64 64" fill="none" style="margin: 1.2rem auto; display: block; animation: floatUpDown 3s ease-in-out infinite;">
+                <circle cx="32" cy="32" r="30" stroke="${corPrimaria}" stroke-width="3" />
+                <path d="M20 24L44 40M44 24L20 40" stroke="${corSecundaria}" stroke-width="4" stroke-linecap="round" />
+            </svg>
+        `,
+        background: 'rgba(255, 255, 255, 0.25)',
+        backdrop: `
+            rgba(0,0,0,0.4)
+            url("https://cdn.pixabay.com/photo/2017/08/30/01/05/particles-2699971_1280.png")
+            center center
+            no-repeat
+        `,
+        confirmButtonText: 'OK',
+        confirmButtonColor: corPrimaria,
+        customClass: {
+            popup: 'glassmorphic-popup'
+        },
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        }
+    });
     }
 
     async function cadastrarTipoUsuario(e) {
@@ -41,13 +83,14 @@ const CadastrarTipoDeUsuario = () => {
             try {
                 // cadastrar um genero: post
                 await api.post("tiposusuarios", { tituloTipoUsuario: tipousuario });
-                alertar("success", "Cadastro realizado com sucesso!")
+               alertar("success", "Tudo certo! O tipo de usuário foi cadastrado com sucesso. 🚀");
                 setTipoUsuario("")
+                listarTipoUsuario();
             } catch (error) {
-                alertar("error", "Erro! entre em contato com o suporte")
+               alertar("error", "Opa! Você esqueceu de preencher o campo. Dá uma olhadinha nisso. 😉");
             }
         } else {
-            alertar("error", "Preencha o campo vazio")
+            alertar("error", "Algo deu errado... Tente novamente ou chame o suporte. 💬");
         }
 
     }
@@ -71,6 +114,9 @@ const CadastrarTipoDeUsuario = () => {
         try {
             const excluirTipoUsuario = await api.delete(`tiposUsuarios/${id.idTipoUsuario}`)
             setListaTipoUsuario(excluirTipoUsuario.data)
+            alertar("success", "Removido com estilo! O tipo de usuário foi excluído. 🗂️");
+            listarTipoUsuario();
+
         }
         catch (error) {
             console.log(error)
@@ -108,6 +154,7 @@ const CadastrarTipoDeUsuario = () => {
     return (
         <>
             <Header nomeUsu="Administrador" />
+            
             <Cadastro
                 titulo="Cadastrar Tipo de Usuario"
                 visibilidade="none"

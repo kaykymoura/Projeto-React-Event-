@@ -10,6 +10,7 @@ import Header from "../../components/header/Header"
 import Lista from "../../components/lista/Lista"
 import Banner from "../../assets/img/banner.png"
 
+
 const CadastrarTipoEvento = () => {
     const [tipoevento, setTipoEvento] = useState("");
     const [listaTipoEvento, setListaTipoEvento] = useState([])

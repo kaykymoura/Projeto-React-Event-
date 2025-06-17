@@ -8,6 +8,7 @@ import Header from "../../components/header/Header";
 import Lista from "../../components/lista/Lista";
 import Banner from "../../assets/img/imagem2.png";
 
+
 const CadastrarEvento = () => {
   const [evento, setEvento] = useState("");
   const [dataevento, setDataEvento] = useState("");
@@ -17,6 +18,7 @@ const CadastrarEvento = () => {
   const [listaTipoEvento, setListaTipoEvento] = useState([]);
   const [listaEvento, setListaEvento] = useState([]);
   const [excluirEvento, setExcluirEvento] = useState([]);
+  
 
   function alertar(icone, mensagem) {
     const Toast = Swal.mixin({

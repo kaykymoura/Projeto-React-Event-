@@ -1,0 +1,60 @@
+.botao-acessibilidade-icone {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 30px;
+  background: #005f73;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.painel-acessibilidade {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 260px;
+  background: #005f73;
+  border-radius: 12px;
+  padding: 15px;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  z-index: 9999;
+}
+
+.painel-acessibilidade h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.painel-acessibilidade button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #0a9396;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.painel-acessibilidade button[aria-pressed="true"] {
+  background-color: #94d2bd;
+}
+
+.painel-acessibilidade button:hover {
+  background-color: #138086;
+}
