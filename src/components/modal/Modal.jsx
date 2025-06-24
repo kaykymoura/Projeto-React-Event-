@@ -3,14 +3,14 @@ import ImgDeletar from "../../assets/img/Deletarzinho.png";
 import "./Modal.css";
 import api from "../../Services/services";
 import { useAuth } from "../../contexts/AuthContext.js";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import 'animate.css';
+
 
 const Modal = (props) => {
   const [comentarios, setComentarios] = useState([]);
   const [novoComentario, setNovoComentario] = useState("");
-  // Usuário fixo **por hora** - igual ao código da professora
   const { usuario } = useAuth();
-
 
   async function listarComentarios() {
     try {
@@ -19,97 +19,92 @@ const Modal = (props) => {
       );
       setComentarios(resposta.data);
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
   }
-   function alertar(tipo, mensagem) {
-      const cores = {
-          success: { corPrimaria: "#4CAF50", corSecundaria: "#81C784", titulo: "Sucesso" },
-          error: { corPrimaria: "#F44336", corSecundaria: "#E57373", titulo: "Erro" },
-      };
-  
-      const { corPrimaria, corSecundaria, titulo } = cores[tipo] || {};
-  
-      Swal.fire({
-          title: `
-              <span style="
-                  background: linear-gradient(90deg, ${corPrimaria}, ${corSecundaria});
-                  -webkit-background-clip: text;
-                  -webkit-text-fill-color: transparent;
-                  font-weight: 700;
-                  font-size: 2.3rem;
-                  text-shadow: 1px 1px 6px ${corSecundaria}88;
-                  display: inline-block;
-                  animation: pulseGlow 2s infinite alternate;
-              ">
-                  ${titulo}
-              </span>
-          `,
-          html: `
-              <p style="
-                  font-family: 'Poppins', sans-serif;
-                  font-size: 1.15rem;
-                  color: ${corSecundaria}cc;
-                  text-align: center;
-                  margin-top: 1rem;
-                  text-shadow: 0 0 2px ${corPrimaria}aa;
-              ">
-                  ${mensagem}
-              </p>
-              <svg width="90" height="90" viewBox="0 0 64 64" fill="none" style="margin: 1.2rem auto; display: block; animation: floatUpDown 3s ease-in-out infinite;">
-                  <circle cx="32" cy="32" r="30" stroke="${corPrimaria}" stroke-width="3" />
-                  <path d="M20 24L44 40M44 24L20 40" stroke="${corSecundaria}" stroke-width="4" stroke-linecap="round" />
-              </svg>
-          `,
-          background: 'rgba(255, 255, 255, 0.25)',
-          backdrop: `
-              rgba(0,0,0,0.4)
-              url("https://cdn.pixabay.com/photo/2017/08/30/01/05/particles-2699971_1280.png")
-              center center
-              no-repeat
-          `,
-          confirmButtonText: 'OK',
-          confirmButtonColor: corPrimaria,
-          customClass: {
-              popup: 'glassmorphic-popup'
-          },
-          showClass: {
-              popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
-          }
-      });
-      }
 
-  
+  function alertar(tipo, mensagem) {
+    Swal.fire({
+      icon: tipo, // 'success' ou 'error'
+      title: tipo === 'success' ? 'Sucesso!' : 'Atenção!',
+      text: mensagem,
+      confirmButtonText: "OK",
+      background: tipo === 'success'
+        ? "linear-gradient(135deg, #81c784, #4caf50)"
+        : "linear-gradient(135deg, #f44336, #e57373)",
+      color: "#fff",
+      confirmButtonColor: tipo === 'success' ? "#388e3c" : "#d32f2f",
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+  }
+
+
   useEffect(() => {
     listarComentarios();
   }, [props.idEvento]);
 
   async function cadastrarComentario() {
     try {
-      await api.post("ComentariosEventos", {
-        idUsuario:  usuario.idUsuario,
+      const resposta = await api.post("ComentariosEventos", {
+        idUsuario: usuario.idUsuario,
         idEvento: props.idEvento,
         descricao: novoComentario,
       });
 
+      const improprio = resposta.data?.improprio;
+
+      if (improprio) {
+        alertar(
+          "error",
+          "Comentário considerado impróprio. Ele foi enviado, mas ficará oculto."
+        );
+      } else {
+        alertar("success", "Comentário publicado com sucesso!");
+      }
+
       setNovoComentario("");
       listarComentarios();
     } catch (error) {
-      console.log(error.response.data); 
-      alertar("error", error.response.data )
+      console.log(error.response?.data || error.message);
+      alertar("error", "Erro ao enviar comentário");
     }
   }
 
-
   async function excluirComentario(idComentario) {
-    try {
-      await api.delete(`ComentariosEventos/${idComentario}`);
-      listarComentarios();
-    } catch (error) {
-      console.log(error); 
+    const result = await Swal.fire({
+      title: 'Tem certeza?',
+      text: "Você não poderá reverter isso!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      background: 'linear-gradient(135deg, #f44336, #e57373)',
+      color: '#fff',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`ComentariosEventos/${idComentario}`);
+        listarComentarios();
+        alertar('success', 'Comentário excluído com sucesso!');
+      } catch (error) {
+        console.log(error);
+        alertar('error', 'Erro ao excluir comentário');
+      }
     }
   }
 
@@ -125,27 +120,33 @@ const Modal = (props) => {
             <>
               {comentarios.map((item) => (
                 <div key={item.idComentarioEvento}>
-                  <strong className="className_comentario_apos_comentar">{item.usuario.nomeUsuario}</strong>
-  
+                  <strong className="className_comentario_apos_comentar">
+                    {item.usuario.nomeUsuario}
+                  </strong>
+
                   <img
                     src={ImgDeletar}
                     alt="Deletar"
                     onClick={() => excluirComentario(item.idComentarioEvento)}
-                    style={{ cursor: "pointer" }} 
+                    style={{ cursor: "pointer" }}
                   />
-                  <p className="className_comentario_apos_comentar_p">{item.descricao}</p>
+                  <p className="className_comentario_apos_comentar_p">
+                    {item.descricao}
+                  </p>
                   <hr />
                 </div>
               ))}
               <div>
-                <input 
+                <input
                   className="className_comentario"
                   type="text"
                   placeholder="Escreva seu comentario..."
                   value={novoComentario}
                   onChange={(e) => setNovoComentario(e.target.value)}
                 />
-                <button className="className_botao" onClick={cadastrarComentario}>Cadastrar</button>
+                <button className="className_botao" onClick={cadastrarComentario}>
+                  Cadastrar
+                </button>
               </div>
             </>
           )}

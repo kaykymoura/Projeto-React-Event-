@@ -8,6 +8,15 @@ const BotaoAcessibilidade = () => {
   const [modoLeituraAtivo, setModoLeituraAtivo] = useState(false);
   const recognition = useRef(null);
 
+  // Função para falar texto
+  function falar(texto) {
+    const utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = "pt-BR";
+    window.speechSynthesis.cancel(); // cancela fala anterior se houver
+    window.speechSynthesis.speak(utterance);
+  }
+
+  // Inicia reconhecimento de voz
   useEffect(() => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -21,32 +30,46 @@ const BotaoAcessibilidade = () => {
       recognition.current.onresult = (event) => {
         const comando = event.results[0][0].transcript.toLowerCase();
         alert(`Você falou: ${comando}`);
+        falar(`Você falou: ${comando}`);
       };
 
       recognition.current.onerror = (event) => {
         alert(`Erro no reconhecimento de voz: ${event.error}`);
+        falar(`Erro no reconhecimento de voz`);
         setReconhecimentoAtivo(false);
       };
 
       recognition.current.onend = () => {
         setReconhecimentoAtivo(false);
+        falar("Reconhecimento de voz finalizado");
       };
     } else {
       console.warn("Seu navegador não suporta reconhecimento de voz.");
+      falar("Seu navegador não suporta reconhecimento de voz");
     }
   }, []);
 
+  // Ativar/desativar reconhecimento de voz
   function toggleReconhecimento() {
     if (!recognition.current) {
       alert("Reconhecimento de voz não disponível nesse navegador.");
+      falar("Reconhecimento de voz não disponível nesse navegador");
       return;
     }
+
     if (reconhecimentoAtivo) {
       recognition.current.stop();
       setReconhecimentoAtivo(false);
+      falar("Reconhecimento de voz desativado");
     } else {
-      recognition.current.start();
-      setReconhecimentoAtivo(true);
+      try {
+        recognition.current.start();
+        setReconhecimentoAtivo(true);
+        falar("Reconhecimento de voz ativado");
+      } catch (error) {
+        console.warn("Erro ao iniciar reconhecimento de voz:", error);
+        falar("Erro ao iniciar reconhecimento de voz");
+      }
     }
   }
 
@@ -54,8 +77,10 @@ const BotaoAcessibilidade = () => {
     setFonteGrande((ativo) => {
       if (!ativo) {
         document.body.style.fontSize = "1.25rem";
+        falar("Fonte grande ativada");
       } else {
         document.body.style.fontSize = "";
+        falar("Fonte normal ativada");
       }
       return !ativo;
     });
@@ -66,9 +91,11 @@ const BotaoAcessibilidade = () => {
       if (!ativo) {
         document.body.style.filter = "invert(1) hue-rotate(180deg)";
         document.body.style.backgroundColor = "#000";
+        falar("Alto contraste ativado");
       } else {
         document.body.style.filter = "";
         document.body.style.backgroundColor = "";
+        falar("Contraste normal ativado");
       }
       return !ativo;
     });
@@ -80,20 +107,40 @@ const BotaoAcessibilidade = () => {
         document.querySelectorAll("img, video").forEach((el) => {
           el.style.display = "none";
         });
+        falar("Modo leitura ativado");
       } else {
         document.querySelectorAll("img, video").forEach((el) => {
           el.style.display = "";
         });
+        falar("Modo leitura desativado");
       }
       return !ativo;
     });
   }
 
   function togglePainel() {
-    setPainelAberto((aberto) => !aberto);
+    setPainelAberto((aberto) => {
+      falar(aberto ? "Fechando painel de acessibilidade" : "Abrindo painel de acessibilidade");
+      return !aberto;
+    });
   }
 
-  // Cores ajustadas
+  // ⚠️ FALA O TEXTO SELECIONADO
+  useEffect(() => {
+    const handleSelectionChange = () => {
+      const selection = window.getSelection();
+      const texto = selection?.toString().trim();
+      if (texto && texto.length > 1) {
+        falar(texto);
+      }
+    };
+
+    document.addEventListener("selectionchange", handleSelectionChange);
+    return () => {
+      document.removeEventListener("selectionchange", handleSelectionChange);
+    };
+  }, []);
+
   const corPrincipal = "#30706F";
   const corAtivo = "#469F9E";
   const sombraAtivo = "#88c9c8";
@@ -127,7 +174,6 @@ const BotaoAcessibilidade = () => {
       }}
       aria-label="Painel de acessibilidade"
     >
-      {/* Botão Ícone Sempre Visível */}
       <button
         onClick={togglePainel}
         aria-expanded={painelAberto}
@@ -160,7 +206,6 @@ const BotaoAcessibilidade = () => {
         </svg>
       </button>
 
-      {/* Conteúdo do painel */}
       {painelAberto && (
         <div
           id="conteudoAcessibilidade"

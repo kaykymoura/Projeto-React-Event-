@@ -38,6 +38,7 @@ const Rotas = () => {
             <Routes>
 
                 <Route path="/" element={<Login />} exact />
+                <Route path="/Home" element={<Home />} exact />
                 <Route element={<Privado tipoPermitido="Administrador" Item={CadastroTipoUsuario} />} path="/CadastrarTipoUsuario" />
                 <Route element={<Privado tipoPermitido="Administrador" Item={CadastroTipoEvento} />} path="/CadastrarTipoEvento" />
                 <Route element={<Privado tipoPermitido="Administrador" Item={CadastrarEvento} />} path="/CadastrarEvento" />

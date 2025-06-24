@@ -15,7 +15,7 @@
 }
 
 .listagem_evento {
-    height: 570px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;

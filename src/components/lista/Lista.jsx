@@ -2,6 +2,8 @@ import "./Lista.css";
 import Editar from "../../assets/img/Editar.png";
 import Detalhes from "../../assets/img/informacoes1.png";
 import Excluir from "../../assets/img/Excluir.png";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 const Lista = (props) => {
   return (
@@ -38,9 +40,11 @@ const Lista = (props) => {
                       ? item.tituloTipoUsuario
                       : item.nomeEvento}
                   </td>
-                  <td style={{ display: props.visible }} data-cell="Data">
-                    {item.dataEvento}
-                  </td>
+                 <td style={{ display: props.visible }} data-cell="Data">
+  {item.dataEvento
+    ? format(new Date(item.dataEvento), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
+    : ""}
+</td>
                   <td style={{ display: props.visible }} data-cell="Evento">
                     {item.tiposEvento?.tituloTipoEvento}
                   </td>

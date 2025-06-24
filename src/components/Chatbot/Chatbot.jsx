@@ -4,35 +4,43 @@ import './Chatbot.css';
 const normalizarTexto = (texto) => {
   return texto
     .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\w\s]/gi, '')
+    .normalize('NFD')              // Normaliza para decompor caracteres acentuados
+    .replace(/[\u0300-\u036f]/g, '')  // Remove acentos
+    .replace(/[^\w\s]/gi, '')      // Remove caracteres especiais (ex: pontuação)
     .trim();
 };
 
 const getResposta = (pergunta) => {
   const texto = normalizarTexto(pergunta);
 
-  // Exemplos simples, expanda conforme suas telas e termos
-  if (/(oi|ola|ola|eae|olaa)/.test(texto)) return 'Oi! Como posso ajudar você hoje?';
-  if (/(como cadastrar tipo usuario|cadastro tipo usuario|adicionar usuario)/.test(texto)) {
+  if (/(^|\W)(oi|ola|olaa|eae|olaa|oie|oii)(\W|$)/.test(texto)) {
+    return 'Oi! Como posso ajudar você hoje?';
+  }
+
+  if (/(^|\W)(como cadastrar tipo usuario|cadastro tipo usuario|adicionar usuario|cadstrar tipo usuario|cadastrar usuario|cadsatrar usuario|tipo usuario)(\W|$)/.test(texto)) {
     return 'Para cadastrar um tipo de usuário, acesse a tela "Cadastrar Tipo Usuário". Lá você poderá inserir as informações necessárias para criar um novo tipo.';
   }
-  if (/(como cadastrar tipo evento|cadastro tipo evento|adicionar evento)/.test(texto)) {
+
+  if (/(^|\W)(como cadastrar tipo evento|cadastro tipo evento|adicionar evento tipo|cadstrar tipo evento|cadsatrar tipo evento|tipo evento)(\W|$)/.test(texto)) {
     return 'Na tela "Cadastrar Tipo Evento", você pode adicionar novos tipos de evento preenchendo o formulário e salvando.';
   }
-  if (/(como cadastrar evento|cadastro evento|adicionar evento)/.test(texto)) {
+
+  if (/(^|\W)(como cadastrar evento|cadastro evento|adicionar evento|cadastrar um evento|cadstrar evento|cadsatrar evento|criar evento|registrar evento|novo evento)(\W|$)/.test(texto)) {
     return 'Use a tela "Cadastrar Evento" para inserir os detalhes do evento, selecionando o tipo e preenchendo os campos necessários.';
   }
-  if (/(o que e a tela login|como funciona o login|tela login)/.test(texto)) {
+
+  if (/(^|\W)(o que e a tela login|como funciona o login|tela login|login)(\W|$)/.test(texto)) {
     return 'A tela Login permite que o usuário acesse o sistema usando email e senha. Ela valida os dados, mostra alertas amigáveis e redireciona conforme o perfil do usuário.';
   }
-  if (/(como ver eventos|listagem de eventos|eventos|tela eventos)/.test(texto)) {
+
+  if (/(^|\W)(como ver eventos|listagem de eventos|eventos|tela eventos)(\W|$)/.test(texto)) {
     return 'Na tela "Listagem de Eventos", você pode visualizar todos os eventos cadastrados e realizar buscas ou filtros.';
   }
-  if (/(ajuda|socorro|nao sei|erro|problema)/.test(texto)) {
+
+  if (/(^|\W)(ajuda|socorro|nao sei|erro|problema|problema tecnico|duvida)(\W|$)/.test(texto)) {
     return 'Se precisar de ajuda, me pergunte sobre qualquer tela ou função que eu vou te orientar!';
   }
+
   if (texto.length < 3) {
     return 'Por favor, digite uma pergunta maior para que eu possa ajudar.';
   }
@@ -45,9 +53,7 @@ export default function ChatBot() {
   const [historico, setHistorico] = useState([]);
   const [aberto, setAberto] = useState(false);
   const [animando, setAnimando] = useState(false);
-  const [inputFocado, setInputFocado] = useState(false);
   const containerRef = useRef(null);
-  const inputRef = useRef(null);
 
   const fecharChat = () => {
     setAnimando(true);
@@ -62,13 +68,12 @@ export default function ChatBot() {
   const enviarPergunta = () => {
     if (!pergunta.trim()) return;
     const resposta = getResposta(pergunta);
-    setHistorico([{ pergunta: pergunta.trim(), resposta }]);
+    setHistorico((prev) => [...prev, { pergunta: pergunta.trim(), resposta }]);
     setPergunta('');
   };
 
   const aoDigitar = (e) => {
     setPergunta(e.target.value);
-    if (historico.length > 0) setHistorico([]);
   };
 
   const aoPressionarEnter = (e) => {
@@ -146,7 +151,7 @@ export default function ChatBot() {
               marginBottom: 16,
             }}
           >
-            <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#30706f' }}>Chatbot</h3>
+            <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#30706f' }}>ChatEvent</h3>
             <button
               onClick={fecharChat}
               aria-label="Fechar chatbot"
@@ -238,7 +243,6 @@ export default function ChatBot() {
             style={{ display: 'flex', gap: 8 }}
           >
             <textarea
-              ref={inputRef}
               rows={1}
               value={pergunta}
               onChange={aoDigitar}
@@ -255,8 +259,6 @@ export default function ChatBot() {
                 fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
                 transition: 'border-color 0.3s ease',
               }}
-              onFocus={() => setInputFocado(true)}
-              onBlur={() => setInputFocado(false)}
             />
             <button
               type="submit"
